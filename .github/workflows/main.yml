@@ -1,0 +1,24 @@
+name: Download and Commit File
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+  download_file:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout current repo
+      uses: actions/checkout@v3
+      
+    - name: Download the file
+      run: |
+        curl -L "https://civitai-delivery-worker-prod.5ac0637cfd0766c97916cefa3764fbdf.r2.cloudflarestorage.com/model/110483/gachasplashalterxlV1.BZ61.safetensors?X-Amz-Expires=86400&response-content-disposition=attachment%3B%20filename%3D%22GachaSplashAlterXL_V1.safetensors%22&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=e01358d793ad6966166af8b3064953ad/20240504/us-east-1/s3/aws4_request&X-Amz-Date=20240504T125117Z&X-Amz-SignedHeaders=host&X-Amz-Signature=59b7f7281097a0dacaad8fa7060e70b42772c93e490e38aa3bf8a6025fde9025" -o "gacha.safesensors"
+
+    - name: Commit and push if there are changes
+      run: |
+        git config --global user.name 'timmmmmmmmmmmmmmmmmmmmm'
+        git config --global user.email 'huih.pang@foxmail.com'
+        git add -A
+        git commit -m "Auto-update file" || echo "No changes to commit"
+        git push
